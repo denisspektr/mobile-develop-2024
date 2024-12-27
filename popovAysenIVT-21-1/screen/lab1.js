@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Lab1({ isDarkTheme, setIsDarkTheme }) {
   const [count, setCount] = useState(0);
@@ -9,10 +10,17 @@ export default function Lab1({ isDarkTheme, setIsDarkTheme }) {
       <Text style={[styles.text, isDarkTheme ? styles.darkText : styles.lightText]}>Счётчик: {count}</Text>
       <Button title="Увеличить" onPress={() => setCount(count + 1)} />
       <Button title="Сбросить" onPress={() => setCount(0)} />
-      <Button
-        title={isDarkTheme ? "Светлая тема" : "Тёмная тема"}
+
+      <TouchableOpacity
+        style={[styles.switchButton, isDarkTheme ? styles.darkButton : styles.lightButton]}
         onPress={() => setIsDarkTheme(!isDarkTheme)}
-      />
+      >
+        <Icon
+          name={isDarkTheme ? "wb-sunny" : "nights-stay"} // Иконки для светлой и темной темы
+          size={30}
+          color={isDarkTheme ? '#fff' : '#333'}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -22,6 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
   },
   lightContainer: {
     backgroundColor: '#f5f5f5',
@@ -38,5 +47,14 @@ const styles = StyleSheet.create({
   },
   darkText: {
     color: 'white',
+  },
+  switchButton: {
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: '#333',
+    marginTop: 20,
   },
 });
