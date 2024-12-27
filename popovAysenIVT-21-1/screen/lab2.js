@@ -43,7 +43,7 @@ export default function Lab2({ isDarkTheme, setIsDarkTheme }) {
         <Image source={{ uri: image }} style={styles.image} />
       )}
 
-      {/* Переключатель для смены темы */}
+      {}
       <View style={styles.switchContainer}>
         <Text style={[styles.switchText, isDarkTheme ? styles.darkText : styles.lightText]}>
           {isDarkTheme ? 'Темная тема' : 'Светлая тема'}
@@ -57,7 +57,7 @@ export default function Lab2({ isDarkTheme, setIsDarkTheme }) {
         />
       </View>
 
-      {/* Кнопка для обновления изображения */}
+      {}
       <Button title="Обновить" onPress={fetchDogImage} />
     </View>
   );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Switch, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from '@expo/vector-icons'; // Используем иконки
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 import Lab1 from "./screen/lab1";
 import Lab2 from "./screen/lab2";

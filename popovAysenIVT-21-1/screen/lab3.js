@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Подключаем иконки из библиотеки
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
 
 export default function Lab3({ isDarkTheme, setIsDarkTheme }) {
   const [inputValue, setInputValue] = useState('');
@@ -33,7 +33,7 @@ export default function Lab3({ isDarkTheme, setIsDarkTheme }) {
   return (
     <View style={[styles.container, isDarkTheme ? styles.darkContainer : styles.lightContainer]}>
       <Text style={[styles.header, isDarkTheme ? styles.darkText : styles.lightText]}>
-        Формула: (число ** 2 + 3 * число - 10) / 2
+        Формула: (число**2+3*число-10)/2
       </Text>
 
       <TextInput
@@ -56,17 +56,15 @@ export default function Lab3({ isDarkTheme, setIsDarkTheme }) {
         {cachedResult ? `Результат: ${cachedResult.result}` : 'Результат: -'}
       </Text>
 
-      <Text style={[styles.timeText, isDarkTheme ? styles.darkText : styles.lightText]}>
-        Время расчета: {formattedTime !== '-' ? `${formattedTime} мс` : '-'}
-      </Text>
+      
 
       <TouchableOpacity
         style={[styles.switchButton, isDarkTheme ? styles.darkButton : styles.lightButton]}
         onPress={() => setIsDarkTheme(!isDarkTheme)}
       >
-        {/* Используем иконки для переключения темы */}
+        {}
         <Icon
-          name={isDarkTheme ? "wb-sunny" : "nights-stay"} // Иконки для светлой и темной темы
+          name={isDarkTheme ? "wb-sunny" : "nights-stay"} 
           size={30}
           color={isDarkTheme ? '#fff' : '#333'}
         />
