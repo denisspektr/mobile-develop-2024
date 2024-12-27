@@ -1,1 +1,1 @@
-https://www.figma.com/design/IGqSSA923lajdhfVRWGG48/Untitled?node-id=0-1&t=W4oXtM46GEgarbES-1
+https://www.figma.com/design/h441DvmHVuqj206EYTaGFo/fedotovaAlina?node-id=0-1&t=Ig7Ckhukjqn4NUQt-1
