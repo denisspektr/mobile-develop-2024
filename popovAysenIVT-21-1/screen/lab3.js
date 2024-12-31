@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
 
 export default function Lab3({ isDarkTheme, setIsDarkTheme }) {
   const [inputValue, setInputValue] = useState('');
@@ -31,7 +32,9 @@ export default function Lab3({ isDarkTheme, setIsDarkTheme }) {
 
   return (
     <View style={[styles.container, isDarkTheme ? styles.darkContainer : styles.lightContainer]}>
-      <Text style={[styles.header, isDarkTheme ? styles.darkText : styles.lightText]}>Формула: (число ** 2 + 3 * число - 10) / 2</Text>
+      <Text style={[styles.header, isDarkTheme ? styles.darkText : styles.lightText]}>
+        Формула: (число**2+3*число-10)/2
+      </Text>
 
       <TextInput
         style={[styles.input, isDarkTheme ? styles.darkInput : styles.lightInput]}
@@ -39,22 +42,33 @@ export default function Lab3({ isDarkTheme, setIsDarkTheme }) {
         value={inputValue}
         onChangeText={setInputValue}
         placeholder="Введите число"
+        placeholderTextColor={isDarkTheme ? '#ccc' : '#888'}
       />
 
-      <Button title="Вычислить" onPress={handleCalculate} />
+      <TouchableOpacity
+        style={[styles.button, isDarkTheme ? styles.darkButton : styles.lightButton]}
+        onPress={handleCalculate}
+      >
+        <Text style={[styles.buttonText, isDarkTheme ? styles.darkText : styles.lightText]}>Вычислить</Text>
+      </TouchableOpacity>
 
       <Text style={[styles.resultText, isDarkTheme ? styles.darkText : styles.lightText]}>
         {cachedResult ? `Результат: ${cachedResult.result}` : 'Результат: -'}
       </Text>
 
-      <Text style={[styles.timeText, isDarkTheme ? styles.darkText : styles.lightText]}>
-        Время расчета: {formattedTime !== '-' ? `${formattedTime} мс` : '-'}
-      </Text>
+      
 
-      <Button
-        title={isDarkTheme ? "Светлая тема" : "Тёмная тема"}
+      <TouchableOpacity
+        style={[styles.switchButton, isDarkTheme ? styles.darkButton : styles.lightButton]}
         onPress={() => setIsDarkTheme(!isDarkTheme)}
-      />
+      >
+        {}
+        <Icon
+          name={isDarkTheme ? "wb-sunny" : "nights-stay"} 
+          size={30}
+          color={isDarkTheme ? '#fff' : '#333'}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -65,6 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    borderRadius: 10,
   },
   lightContainer: {
     backgroundColor: '#f5f5f5',
@@ -73,38 +88,70 @@ const styles = StyleSheet.create({
     backgroundColor: '#333',
   },
   header: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
   },
   lightText: {
-    color: 'black',
+    color: '#333',
   },
   darkText: {
-    color: 'white',
+    color: '#fff',
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
+    height: 50,
+    width: '100%',
+    borderColor: '#ccc',
     borderWidth: 1,
     marginBottom: 20,
-    paddingLeft: 10,
-    width: '100%',
+    paddingLeft: 15,
+    fontSize: 18,
+    borderRadius: 8,
   },
   darkInput: {
     backgroundColor: '#555',
     borderColor: '#aaa',
+    color: '#fff',
   },
   lightInput: {
     backgroundColor: '#fff',
     borderColor: '#ccc',
+    color: '#333',
   },
   resultText: {
-    fontSize: 20,
+    fontSize: 22,
     marginBottom: 10,
+    fontWeight: 'bold',
   },
   timeText: {
     fontSize: 16,
-    color: 'gray',
+    color: '#777',
+    marginBottom: 20,
+  },
+  button: {
+    width: '100%',
+    padding: 12,
+    marginBottom: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  lightButton: {
+    backgroundColor: '#4CAF50',
+  },
+  darkButton: {
+    backgroundColor: '#1E88E5',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#fff',
+  },
+  switchButton: {
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: '#333',
   },
 });
