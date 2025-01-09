@@ -5,10 +5,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Lab1 from './screens/lab1';
 import Lab2 from './screens/lab2';
-import Lab3 from './screens/lab3';
-// import Lab4 from './screens/lab4';
-// import Lab4_2 from './screens/lab4_2';
 import { Ionicons } from '@expo/vector-icons'; // Иконки
+import Lab3 from './screens/lab3';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,11 +27,6 @@ const App = () => {
                             } else if (route.name === 'Lab3') {
                                 iconName = focused ? 'ios-list' : 'ios-list-outline';
                             }
-                            // else if (route.name === 'Lab4') {
-                            //     iconName = focused ? 'ios-add-circle' : 'ios-add-circle-outline';
-                            // } else if (route.name === 'Lab4_2') {
-                            //     iconName = focused ? 'ios-eye' : 'ios-eye-outline';
-                            // }
 
                             return <Ionicons name={iconName} size={size} color={color} />;
                         },
@@ -57,8 +50,6 @@ const App = () => {
                     <Tab.Screen name="Lab1" component={Lab1} options={{ title: 'Счетчик' }} />
                     <Tab.Screen name="Lab2" component={Lab2} options={{ title: 'Таймер' }} />
                     <Tab.Screen name="Lab3" component={Lab3} options={{ title: 'Список' }} />
-                    {/* <Tab.Screen name="Lab4" component={Lab4} options={{ title: 'Redux' }} />
-                    <Tab.Screen name="Lab4_2" component={Lab4_2} options={{ title: 'Просмотр' }} /> */}
                 </Tab.Navigator>
             </NavigationContainer>
         </Provider>
