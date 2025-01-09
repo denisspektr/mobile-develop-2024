@@ -1,157 +1,116 @@
-import React, { useState, useMemo } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import React, { useState, useMemo, useEffect } from "react";
 
-export default function Lab3({ isDarkTheme, setIsDarkTheme }) {
-  const [inputValue, setInputValue] = useState('');
-  const [calculations, setCalculations] = useState([]);
+const Lab3 = () => {
+  const [size, setSize] = useState(100);
+  const [elapsedTime, setElapsedTime] = useState(0); 
+  const [isRunning, setIsRunning] = useState(false);
 
-  const handleCalculate = () => {
-    const num = parseFloat(inputValue);
+  const circleStyle = useMemo(() => {
+    for (let i = 0; i < 100000000; i++) {}
+    return {
+      width: size,
+      height: size,
+      borderRadius: size / 2,
+      backgroundColor: "#4682B4",
+      justifyContent: "center",
+      alignItems: "center",
+    };
+  }, [size]);
 
-    if (isNaN(num)) {
-      return;
+  useEffect(() => {
+    let interval = null;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setElapsedTime((prev) => prev + 10); 
+      }, 10);
+    } else if (!isRunning && interval) {
+      clearInterval(interval);
     }
+    return () => clearInterval(interval);
+  }, [isRunning]);
 
-    const start = performance.now();
-    const calcResult = (num ** 2 + 3 * num - 10) / 2;
-    const end = performance.now();
-    const timeTaken = end - start;
-
-    setCalculations(prevState => [
-      ...prevState,
-      { input: inputValue, result: calcResult, time: timeTaken },
-    ]);
+  const formatTime = (time) => {
+    const seconds = Math.floor(time / 1000);
+    const milliseconds = time % 1000;
+    return `${seconds}.${milliseconds.toString().padStart(3, "0")}`;
   };
 
-  const cachedResult = useMemo(() => {
-    return calculations.find(calc => calc.input === inputValue);
-  }, [inputValue, calculations]);
-
-  const formattedTime = cachedResult ? cachedResult.time.toFixed(3) : '-';
-
   return (
-    <View style={[styles.container, isDarkTheme ? styles.darkContainer : styles.lightContainer]}>
-      <Text style={[styles.header, isDarkTheme ? styles.darkText : styles.lightText]}>
-        Формула: (число**2+3*число-10)/2
-      </Text>
+    <View style={styles.container}>
+      <View style={{ height: 50, marginTop: 50, marginBottom: 60 }}>
+        <Text style={styles.countText}>
+          Timer: <Text style={styles.countNumber}>{formatTime(elapsedTime)}</Text>
+        </Text>
 
-      <TextInput
-        style={[styles.input, isDarkTheme ? styles.darkInput : styles.lightInput]}
-        keyboardType="numeric"
-        value={inputValue}
-        onChangeText={setInputValue}
-        placeholder="Введите число"
-        placeholderTextColor={isDarkTheme ? '#ccc' : '#888'}
-      />
+        <Text style={styles.countText}>
+          Circle size: <Text style={styles.countNumber}>{size}</Text>
+        </Text>
+      </View>
 
-      <TouchableOpacity
-        style={[styles.button, isDarkTheme ? styles.darkButton : styles.lightButton]}
-        onPress={handleCalculate}
-      >
-        <Text style={[styles.buttonText, isDarkTheme ? styles.darkText : styles.lightText]}>Вычислить</Text>
-      </TouchableOpacity>
+      <View style={styles.boxContainer}>
+        <View style={circleStyle}></View>
+      </View>
 
-      <Text style={[styles.resultText, isDarkTheme ? styles.darkText : styles.lightText]}>
-        {cachedResult ? `Результат: ${cachedResult.result}` : 'Результат: -'}
-      </Text>
+      <View style={{ marginTop: 40 }}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setIsRunning((prev) => !prev)}
+        >
+          <Text style={styles.buttonText}>
+            {isRunning ? "Pause Timer" : "Start Timer"}
+          </Text>
+        </TouchableOpacity>
 
-      
+        <TouchableOpacity
+          style={[styles.button, { marginTop: 10 }]}
+          onPress={() => {
+            setElapsedTime(0);
+            setIsRunning(false);
+          }}
+        >
+          <Text style={styles.buttonText}>Reset Timer</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.switchButton, isDarkTheme ? styles.darkButton : styles.lightButton]}
-        onPress={() => setIsDarkTheme(!isDarkTheme)}
-      >
-        {}
-        <Icon
-          name={isDarkTheme ? "wb-sunny" : "nights-stay"} 
-          size={30}
-          color={isDarkTheme ? '#fff' : '#333'}
-        />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { marginTop: 10 }]}
+          onPress={() => setSize((size + 13) % 100 + 50)}
+        >
+          <Text style={styles.buttonText}>Change Circle Size</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    borderRadius: 10,
+    alignItems: "center",
   },
-  lightContainer: {
-    backgroundColor: '#f5f5f5',
-  },
-  darkContainer: {
-    backgroundColor: '#333',
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  lightText: {
-    color: '#333',
-  },
-  darkText: {
-    color: '#fff',
-  },
-  input: {
-    height: 50,
-    width: '100%',
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingLeft: 15,
-    fontSize: 18,
-    borderRadius: 8,
-  },
-  darkInput: {
-    backgroundColor: '#555',
-    borderColor: '#aaa',
-    color: '#fff',
-  },
-  lightInput: {
-    backgroundColor: '#fff',
-    borderColor: '#ccc',
-    color: '#333',
-  },
-  resultText: {
-    fontSize: 22,
-    marginBottom: 10,
-    fontWeight: 'bold',
-  },
-  timeText: {
-    fontSize: 16,
-    color: '#777',
-    marginBottom: 20,
+  boxContainer: {
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
   },
   button: {
-    width: '100%',
-    padding: 12,
-    marginBottom: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  lightButton: {
-    backgroundColor: '#4CAF50',
-  },
-  darkButton: {
-    backgroundColor: '#1E88E5',
+    alignItems: "center",
+    backgroundColor: "#2260FF",
+    paddingBottom: 2,
+    paddingHorizontal: 10,
+    borderRadius: 20,
   },
   buttonText: {
+    color: "white",
     fontSize: 18,
-    color: '#fff',
   },
-  switchButton: {
-    width: 60,
-    height: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 30,
-    backgroundColor: '#333',
+  countText: {
+    fontSize: 15,
+  },
+  countNumber: {
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
+
+export default Lab3;
