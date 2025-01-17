@@ -72,6 +72,6 @@ const styles = StyleSheet.create({
     color: "#DCEEFA",
     textAlign: "center",
     fontFamily: "Inter",
-    fontWeight: 300,
+    fontWeight: "300",
   },
 });

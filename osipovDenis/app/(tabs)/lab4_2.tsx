@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: "#2A4758",
     marginTop: 15,
-    fontWeight: 400,
+    fontWeight: "400",
   },
   textDesc: {
     fontFamily: "Inter",
     fontSize: 10,
     marginLeft: 17,
     color: "#2A4758",
-    fontWeight: 400,
+    fontWeight: "400",
   },
   button: {
     backgroundColor: "#2A4758",
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     verticalAlign: "middle",
     lineHeight: 26,
-    fontWeight: 300,
+    fontWeight: "300",
   },
 });

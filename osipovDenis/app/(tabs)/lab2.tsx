@@ -99,6 +99,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 7,
     fontFamily: "Inter",
-    fontWeight: 300,
+    fontWeight: "300",
   },
 });
