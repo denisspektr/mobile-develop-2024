@@ -44,15 +44,6 @@ export default function TabLayout() {
             ),
           }}
         />
-        <Tabs.Screen
-          name="lab3"
-          options={{
-            title: "Lab3",
-            tabBarIcon: ({ color, size }) => (
-              <Entypo name="lab-flask" size={size} color={color} />
-            ),
-          }}
-        />
       </Tabs>
     </>
   );
